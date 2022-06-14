@@ -3,7 +3,9 @@ const mongoose = require("mongoose");
 const todoSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
+    required: [true, "must be provided name"],
+    maxlength: [20, "name must be less than 20 characters"],
+    trim: true,
   },
   description: {
     type: String,
