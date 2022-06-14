@@ -14,6 +14,10 @@ const env = require("dotenv");
 const favicon = require("serve-favicon");
 var path = require("path");
 
+// imports routes, middleware, and configs
+const todos = require("./src/routes/todos.route");
+const { notFoundRoute, errorHandler } = require("./src/configs/errorHandler");
+
 // loads environment variables from .env file
 env.config();
 
@@ -42,7 +46,13 @@ app.get("/", (req, res) => {
 });
 
 // todos api routes
-app.use(process.env.APP_API_PREFIX, require("./src/routes/todos.route"));
+app.use(process.env.APP_API_PREFIX, todos);
+
+// 404 - not found error handler
+app.use(notFoundRoute);
+
+// error handler
+app.use(errorHandler);
 
 // app listens to defined port
 app.listen(process.env.APP_PORT, () => {
