@@ -10,6 +10,24 @@
 
 <!-- INSTALL PROJECT PACKAGES -->
 
+## API Documentation
+
+```sh
+|---------------------------------------------------------------------------------|
+|METHOD:  URL:                                        // DESCRIPTION              |
+|---------------------------------------------------------------------------------|
+|GET:     http:localhost:5000/                        // defaults welcome routes  |
+|GET:     http:localhost:5000/api/v1/all              // get all todos            |
+|GET:     http:localhost:5000/api/v1/:id              // get a single todo        |
+|POST:    http:localhost:5000/api/v1/                 // create a new todo        |
+|POST:    http:localhost:5000/api/v1/many             // create many todos        |
+|PUT:     http:localhost:5000/api/v1/:id              // update a todo            |
+|DELETE:  http:localhost:5000/api/v1/:id              // delete a todo            |
+|---------------------------------------------------------------------------------|
+```
+
+<!-- INSTALL PROJECT PACKAGES -->
+
 ## Installing Packages
 
 ```sh
