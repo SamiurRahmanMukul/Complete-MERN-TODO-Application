@@ -2,17 +2,40 @@
 const Todo = require("../models/todos.model");
 
 // make a controller for get all todos
-exports.getAllTodos = (req, res) => {
-  res.status(200).json({
-    message: "Get all todos successfully.",
-  });
+exports.getAllTodos = async (req, res) => {
+  try {
+    const todos = await Todo.find({});
+
+    try {
+      res.status(200).json({
+        message: "Get all todos successfully.",
+        todos: todos,
+      });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 // make a controller for get a todo
-exports.getATodo = (req, res) => {
-  res.status(200).json({
-    message: "Get a todo successfully.",
-  });
+exports.getATodo = async (req, res) => {
+  try {
+    const { id: todoId } = req.params;
+    const todo = await Todo.findOne({ _id: todoId });
+
+    if (!todo) {
+      return res.status(404).json({ msg: `No task with id: ${todoId}` });
+    } else {
+      res.status(200).json({
+        message: "Get a todo successfully.",
+        todo: todo,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 // make a controller for create a todo
@@ -48,14 +71,38 @@ exports.createManyTodos = async (req, res) => {
 
 // make a controller for update a todo
 exports.updateATodo = async (req, res) => {
-  res.status(200).json({
-    message: "Update a todo successfully.",
-  });
+  try {
+    const { id: todoId } = req.params;
+    const todo = await Todo.findByIdAndUpdate(todoId, req.body, { new: true, runValidators: true });
+
+    if (!todo) {
+      return res.status(404).json({ msg: `No todo with id: ${todoId}` });
+    } else {
+      res.status(200).json({
+        msg: `Todo with id: ${todoId} updated successfully.`,
+        todo: todo,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 // make a controller for delete a todo
-exports.deleteATodo = (req, res) => {
-  res.status(200).json({
-    message: "Delete a todo successfully.",
-  });
+exports.deleteATodo = async (req, res) => {
+  try {
+    const { id: todoId } = req.params;
+    const todo = await Todo.findByIdAndDelete(todoId);
+
+    if (!todo) {
+      return res.status(404).json({ msg: `No todo with id: ${todoId}` });
+    } else {
+      res.status(200).json({
+        message: `Todo with id: ${todoId} deleted successfully.`,
+        todo: todo,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
