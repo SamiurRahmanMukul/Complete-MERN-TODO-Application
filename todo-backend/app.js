@@ -13,6 +13,7 @@ const express = require("express");
 const env = require("dotenv");
 const favicon = require("serve-favicon");
 var path = require("path");
+var cors = require("cors");
 
 // imports routes, middleware, and configs
 const todos = require("./src/routes/todos.route");
@@ -27,6 +28,9 @@ const app = express();
 // application database connection establishment
 const connectDatabase = require("./src/db/connect");
 connectDatabase();
+
+// corss-origin-allow-all
+app.use(cors());
 
 // sets favicon in routes
 app.use(favicon(path.join(__dirname, "public", "favicon.ico")));

@@ -1,11 +1,11 @@
 const router = require("express").Router();
 const { getAllTodos, getATodo, createATodo, createManyTodos, updateATodo, deleteATodo } = require("../controllers/todos.controller");
 
-router.get("/all", getAllTodos);
-router.get("/:id", getATodo);
-router.post("/", createATodo);
-router.post("/many", createManyTodos);
-router.put("/:id", updateATodo);
-router.delete("/:id", deleteATodo);
+router.get("/todos-all", getAllTodos);
+router.get("/todo/:id", getATodo);
+router.post("/todo/", createATodo);
+router.post("/todos-many", createManyTodos);
+router.put("/todo/:id", updateATodo);
+router.delete("/todo/:id", deleteATodo);
 
 module.exports = router;
