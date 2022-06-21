@@ -14,15 +14,15 @@
 
 ```sh
 |---------------------------------------------------------------------------------|
-|METHOD:  URL:                                        // DESCRIPTION              |
+| METHOD:  URL:                                        // DESCRIPTION             |
 |---------------------------------------------------------------------------------|
-|GET:     http:localhost:5000/                        // defaults welcome routes  |
-|GET:     http:localhost:5000/api/v1/all              // get all todos            |
-|GET:     http:localhost:5000/api/v1/:id              // get a single todo        |
-|POST:    http:localhost:5000/api/v1/                 // create a new todo        |
-|POST:    http:localhost:5000/api/v1/many             // create many todos        |
-|PUT:     http:localhost:5000/api/v1/:id              // update a todo            |
-|DELETE:  http:localhost:5000/api/v1/:id              // delete a todo            |
+| GET:     http:localhost:5000/                        // defaults welcome routes |
+| GET:     http:localhost:5000/api/v1/todos-all        // get all todos           |
+| GET:     http:localhost:5000/api/v1/todo/:id         // get a single todo       |
+| POST:    http:localhost:5000/api/v1/todo/            // create a new todo       |
+| POST:    http:localhost:5000/api/v1/todos-many       // create many todos       |
+| PUT:     http:localhost:5000/api/v1/todo/:id         // update a todo           |
+| DELETE:  http:localhost:5000/api/v1/todo/:id         // delete a todo           |
 |---------------------------------------------------------------------------------|
 ```
 
@@ -35,6 +35,7 @@ npm install express         // node framework
 npm install serve-favicon   // api router favicon sets
 npm install mongoose        // mongoDB database schema-based solution to model your application data
 npm install dotenv          // environment variables
+npm install corss           // corss-origin-allow-all
 ```
 
 <!-- EXTENSIONS & LINTING SETUP -->
