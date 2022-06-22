@@ -3,7 +3,7 @@ const { getAllTodos, getATodo, createATodo, createManyTodos, updateATodo, delete
 
 router.get("/todos-all", getAllTodos);
 router.get("/todo/:id", getATodo);
-router.post("/todo/", createATodo);
+router.post("/todo/new", createATodo);
 router.post("/todos-many", createManyTodos);
 router.put("/todo/:id", updateATodo);
 router.delete("/todo/:id", deleteATodo);

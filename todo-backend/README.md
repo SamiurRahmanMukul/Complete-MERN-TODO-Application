@@ -19,7 +19,7 @@
 | GET:     http:localhost:5000/                        // defaults welcome routes |
 | GET:     http:localhost:5000/api/v1/todos-all        // get all todos           |
 | GET:     http:localhost:5000/api/v1/todo/:id         // get a single todo       |
-| POST:    http:localhost:5000/api/v1/todo/            // create a new todo       |
+| POST:    http:localhost:5000/api/v1/todo/new         // create a new todo       |
 | POST:    http:localhost:5000/api/v1/todos-many       // create many todos       |
 | PUT:     http:localhost:5000/api/v1/todo/:id         // update a todo           |
 | DELETE:  http:localhost:5000/api/v1/todo/:id         // delete a todo           |

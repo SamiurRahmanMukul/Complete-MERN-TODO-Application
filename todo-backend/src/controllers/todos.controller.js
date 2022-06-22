@@ -4,7 +4,7 @@ const Todo = require("../models/todos.model");
 // make a controller for get all todos
 exports.getAllTodos = async (req, res) => {
   try {
-    const todos = await Todo.find({});
+    const todos = await Todo.find({}).sort({ createdAt: -1 });
 
     try {
       res.status(200).json({
