@@ -1,9 +1,10 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 const EditTodoForm = () => {
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [todoTitle, setTodoTitle] = useState("");
   const [todoDescription, setTodoDescription] = useState("");
   const [todoCompleted, setTodoCompleted] = useState(false);
@@ -13,12 +14,62 @@ const EditTodoForm = () => {
   useEffect(() => {
     if (!searchParams.get("id")) {
       navigate("/");
+    } else {
+      axios
+        .get(process.env.REACT_APP_API_BASE_URL + "/api/v1/todo/" + searchParams.get("id"))
+        .then((res) => {
+          setTodoTitle(res.data.todo.title);
+          setTodoDescription(res.data.todo.description);
+          setTodoCompleted(res.data.todo.completed);
+        })
+        .catch((err) => {
+          setValidationError("Error: " + err.message);
+        });
     }
   }, [searchParams, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // form validation check and set error message
+    if (todoTitle.length === 0) {
+      setValidationError("Title filed is required");
+    } else if (todoDescription.length === 0) {
+      setValidationError("Description filed is required");
+    }
+
+    // if validation is ok, then add new todo
+    if (todoTitle && todoDescription) {
+      axios
+        .put(process.env.REACT_APP_API_BASE_URL + "/api/v1/todo/" + searchParams.get("id"), {
+          title: todoTitle,
+          description: todoDescription,
+          completed: todoCompleted,
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            setSuccessMessage("Todo updated successfully");
+
+            // after 2 seconds, redirect to todo list
+            setTimeout(() => {
+              navigate("/");
+            }, 2000);
+          } else {
+            setValidationError("Error: " + res.message);
+          }
+        })
+        .catch((err) => {
+          setValidationError("Error: " + err.message);
+        });
+    }
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setSuccessMessage("");
+      setValidationError("");
+    }, 3000);
+  }, [successMessage, validationError]);
 
   return (
     <div className="bg-gray-100 w-[90%] md:w-[80%] lg:w-[50%] p-5 rounded-sm shadow-md">
@@ -48,7 +99,7 @@ const EditTodoForm = () => {
         <textarea className="w-full border-2 border-gray-500 px-5 py-2 rounded-sm" cols="30" rows="3" placeholder="Add here todo description" value={todoDescription} onChange={(e) => setTodoDescription(e.target.value)} />
 
         {/* TODOS COMPLETED CHECKBOX INPUT FIELD */}
-        <div class="w-full flex flex-row items-center justify-start my-4">
+        <div className="w-full flex flex-row items-center justify-start my-4">
           <input
             type="checkbox"
             checked={todoCompleted}
@@ -58,7 +109,7 @@ const EditTodoForm = () => {
               setTodoCompleted(e.target.checked);
             }}
           />
-          <label for="todoCheckBox" className="ml-2 text-md cursor-pointer">
+          <label htmlFor="todoCheckBox" className="ml-2 text-md cursor-pointer">
             Todo Completed
           </label>
         </div>
