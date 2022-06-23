@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { deleteTodo, getAllTodos } from "../redux/actions/todosAction";
 
 const TodosList = () => {
@@ -38,7 +39,10 @@ const TodosList = () => {
             </p>
 
             <div className="flex flex-row items-center justify-center mt-2">
-              <button className="bg-blue-500 text-white rounded-sm shadow-md w-full my-2 py-2 mr-2 transition-all duration-100 hover:bg-blue-600">Edit</button>
+              <Link to={`edit-todo/?id=${todo._id}`} className="bg-blue-500 text-white text-center rounded-sm shadow-md w-full my-2 py-2 mr-2 transition-all duration-100 hover:bg-blue-600">
+                Edit
+              </Link>
+
               <button className="bg-red-500 text-white rounded-sm shadow-md w-full my-2 py-2 ml-2 transition-all duration-100 hover:bg-red-600" onClick={() => handleDeleteTodo(todo._id)}>
                 Delete
               </button>
