@@ -4,7 +4,7 @@ import { createTodo } from "../redux/actions/todosAction";
 
 const AddNewTodoForm = () => {
   const dispatch = useDispatch();
-  const { isLoadingPost } = useSelector((state) => state.todos);
+  const { isLoadingPost, successPost, errorPost } = useSelector((state) => state.todos);
   const [todoTitle, setTodoTitle] = useState("");
   const [todoDescription, setTodoDescription] = useState("");
   const [validationError, setValidationError] = useState("");
@@ -28,11 +28,16 @@ const AddNewTodoForm = () => {
 
       // add new todo to the list
       dispatch(createTodo({ todoTitle, todoDescription }));
-
-      // show success / error message
-      setSuccessMessage("Todo added successfully");
     }
   };
+
+  useEffect(() => {
+    if (successPost) {
+      setSuccessMessage(successPost.message);
+    } else if (errorPost) {
+      setValidationError("Error: " + errorPost.message);
+    }
+  }, [successPost, errorPost]);
 
   useEffect(() => {
     setTimeout(() => {

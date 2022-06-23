@@ -19,7 +19,7 @@ const initialState = {
 
 const todosReducer = (state = initialState, action) => {
   switch (action.type) {
-    // all todo gets actions
+    // all todo gets reducers
     case GET_TODOS_REQUEST:
       return {
         ...state,
@@ -38,7 +38,7 @@ const todosReducer = (state = initialState, action) => {
         error: action.payload,
       };
 
-    // single todo create actions
+    // single todo create reducers
     case POST_TODOS_REQUEST:
       return {
         ...state,
@@ -59,7 +59,7 @@ const todosReducer = (state = initialState, action) => {
         errorPost: action.payload,
       };
 
-    // single todo delete actions
+    // single todo delete reducers
     case DELETE_TODOS_REQUEST:
       return {
         ...state,
